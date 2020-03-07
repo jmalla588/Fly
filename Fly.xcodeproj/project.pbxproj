@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		D6CB6F812410718200A86576 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6F802410718200A86576 /* AppDelegate.swift */; };
 		D6CB6F832410718200A86576 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6F822410718200A86576 /* SceneDelegate.swift */; };
-		D6CB6F852410718200A86576 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6F842410718200A86576 /* ViewController.swift */; };
+		D6CB6F852410718200A86576 /* FlyMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6F842410718200A86576 /* FlyMainViewController.swift */; };
 		D6CB6F882410718200A86576 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CB6F862410718200A86576 /* Main.storyboard */; };
 		D6CB6F8A2410718300A86576 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6CB6F892410718300A86576 /* Assets.xcassets */; };
 		D6CB6F8D2410718300A86576 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6CB6F8B2410718300A86576 /* LaunchScreen.storyboard */; };
 		D6CB6F982410718300A86576 /* FlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6F972410718300A86576 /* FlyTests.swift */; };
 		D6CB6FA32410718300A86576 /* FlyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6FA22410718300A86576 /* FlyUITests.swift */; };
+		D6CB6FB124107AD100A86576 /* CustomSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6FB024107AD100A86576 /* CustomSwitch.swift */; };
+		D6CB6FB42412174E00A86576 /* UserDefaults+OptionalGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6FB32412174E00A86576 /* UserDefaults+OptionalGet.swift */; };
+		D6CB6FB6241217A400A86576 /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6FB5241217A400A86576 /* NotificationHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,9 +41,9 @@
 		D6CB6F7D2410718200A86576 /* Fly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6CB6F802410718200A86576 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6CB6F822410718200A86576 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D6CB6F842410718200A86576 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D6CB6F842410718200A86576 /* FlyMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyMainViewController.swift; sourceTree = "<group>"; };
 		D6CB6F872410718200A86576 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D6CB6F892410718300A86576 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D6CB6F892410718300A86576 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Fly/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		D6CB6F8C2410718300A86576 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6CB6F8E2410718300A86576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6CB6F932410718300A86576 /* FlyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +52,9 @@
 		D6CB6F9E2410718300A86576 /* FlyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6CB6FA22410718300A86576 /* FlyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlyUITests.swift; sourceTree = "<group>"; };
 		D6CB6FA42410718300A86576 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6CB6FB024107AD100A86576 /* CustomSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitch.swift; sourceTree = "<group>"; };
+		D6CB6FB32412174E00A86576 /* UserDefaults+OptionalGet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+OptionalGet.swift"; sourceTree = "<group>"; };
+		D6CB6FB5241217A400A86576 /* NotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +105,10 @@
 		D6CB6F7F2410718200A86576 /* Fly */ = {
 			isa = PBXGroup;
 			children = (
+				D6CB6FB22412172600A86576 /* Utilities */,
 				D6CB6F802410718200A86576 /* AppDelegate.swift */,
 				D6CB6F822410718200A86576 /* SceneDelegate.swift */,
-				D6CB6F842410718200A86576 /* ViewController.swift */,
+				D6CB6F842410718200A86576 /* FlyMainViewController.swift */,
 				D6CB6F862410718200A86576 /* Main.storyboard */,
 				D6CB6F892410718300A86576 /* Assets.xcassets */,
 				D6CB6F8B2410718300A86576 /* LaunchScreen.storyboard */,
@@ -126,6 +133,16 @@
 				D6CB6FA42410718300A86576 /* Info.plist */,
 			);
 			path = FlyUITests;
+			sourceTree = "<group>";
+		};
+		D6CB6FB22412172600A86576 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D6CB6FB024107AD100A86576 /* CustomSwitch.swift */,
+				D6CB6FB32412174E00A86576 /* UserDefaults+OptionalGet.swift */,
+				D6CB6FB5241217A400A86576 /* NotificationHelper.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +276,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6CB6F852410718200A86576 /* ViewController.swift in Sources */,
+				D6CB6FB6241217A400A86576 /* NotificationHelper.swift in Sources */,
+				D6CB6F852410718200A86576 /* FlyMainViewController.swift in Sources */,
 				D6CB6F812410718200A86576 /* AppDelegate.swift in Sources */,
+				D6CB6FB124107AD100A86576 /* CustomSwitch.swift in Sources */,
+				D6CB6FB42412174E00A86576 /* UserDefaults+OptionalGet.swift in Sources */,
 				D6CB6F832410718200A86576 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
