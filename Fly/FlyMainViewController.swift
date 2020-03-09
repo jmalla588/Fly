@@ -79,7 +79,7 @@ class FlyMainViewController: UIViewController, UIAdaptivePresentationControllerD
         
         currentState
             ? UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            : NotificationHelper.createFlyNotification(minutes: autoReminderTimeMinutes, seconds: autoReminderTimeSeconds)
+            : NotificationHelper.createFlyNotificationAuto(minutes: autoReminderTimeMinutes, seconds: autoReminderTimeSeconds)
     }
     
     func presentationControllerDidDismiss(
