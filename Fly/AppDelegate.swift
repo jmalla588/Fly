@@ -14,7 +14,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        if UserDefaults.standard.boolOptional(forKey: "USE_AUTO_REMINDERS") == nil {
+            UserDefaults.standard.set(true, forKey: "USE_AUTO_REMINDERS")
+        }
+        
+        if UserDefaults.standard.boolOptional(forKey: "USE_MANUAL_REMINDERS") == nil {
+            UserDefaults.standard.set(true, forKey: "USE_MANUAL_REMINDERS")
+        }
+        
+        if UserDefaults.standard.boolOptional(forKey: "JUST_FOR_FUN") == nil {
+            UserDefaults.standard.set(true, forKey: "JUST_FOR_FUN")
+        }
+
         return true
     }
 

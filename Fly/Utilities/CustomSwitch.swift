@@ -9,7 +9,7 @@
 //  His code is here: https://gist.github.com/nathantannar4/b9b87d4902bb130a10d2397e97ebf9eb
 import UIKit
 
-class CustomSwitch: UIControl {
+@IBDesignable class CustomSwitch: UIControl {
 
     var isOn: Bool = false {
         didSet {
@@ -18,6 +18,8 @@ class CustomSwitch: UIControl {
     }
 
     var isStretchEnable: Bool = true
+    
+    var attachedKey: String = "FLY_IS_ZIPPED"
 
     var borderWidth: CGFloat = 2 {
         didSet {
@@ -50,23 +52,23 @@ class CustomSwitch: UIControl {
         }
     }
 
-    var onTintColor: UIColor = UIColor.init(red: 0.28, green: 0.745, blue: 0.44, alpha: 1) {
+    var onTintColor: UIColor? = UIColor.init(red: 0.28, green: 0.745, blue: 0.44, alpha: 1) {
         didSet {
             trackLayer.backgroundColor = getBackgroundColor()
         }
     }
 
-    var offTintColor: UIColor = UIColor.red {
+    var offTintColor: UIColor? = UIColor.red {
         didSet {
             trackLayer.backgroundColor = getBackgroundColor()
         }
     }
 
-    var thumbTintColor: UIColor = .white {
+    var thumbTintColor: UIColor? = .white {
         didSet {
-            thumbLayer.backgroundColor = thumbTintColor.cgColor
-            (onContentLayer as? CATextLayer)?.foregroundColor = thumbTintColor.cgColor
-            (offContentLayer as? CATextLayer)?.foregroundColor = thumbTintColor.cgColor
+            thumbLayer.backgroundColor = thumbTintColor?.cgColor
+            (onContentLayer as? CATextLayer)?.foregroundColor = thumbTintColor?.cgColor
+            (offContentLayer as? CATextLayer)?.foregroundColor = thumbTintColor?.cgColor
 
         }
     }
@@ -163,7 +165,7 @@ class CustomSwitch: UIControl {
 
         contentsLayer.masksToBounds = true
 
-        thumbLayer.backgroundColor = thumbTintColor.cgColor
+        thumbLayer.backgroundColor = thumbTintColor?.cgColor
         thumbLayer.shadowColor = UIColor.gray.cgColor
         thumbLayer.shadowRadius = 2
         thumbLayer.shadowOpacity = 0.4
@@ -279,7 +281,7 @@ class CustomSwitch: UIControl {
     private func touchUp() {
         isOn.toggle()
         sendActions(for: .valueChanged)
-        UserDefaults.standard.set(isOn, forKey: "FLY_IS_ZIPPED")
+        UserDefaults.standard.set(isOn, forKey: attachedKey)
         thumbImage = isOn
             ? UIImage(named: "zippers-closed-vertical")?.cgImage
             : UIImage(named: "zippers-open-vertical")?.cgImage
@@ -294,7 +296,7 @@ class CustomSwitch: UIControl {
 
     // MARK: - Layout Helper
     final func getBackgroundColor() -> CGColor {
-        return (isOn ? onTintColor : offTintColor).cgColor
+        return (isOn ? onTintColor : offTintColor)?.cgColor ?? UIColor.white.cgColor
     }
 
     final func getThumbSize() -> CGSize {
@@ -327,7 +329,7 @@ class CustomSwitch: UIControl {
         let textLayer = CATextLayer()
         textLayer.font = UIFont(name: "Gill Sans", size: 12)
         textLayer.fontSize = 32
-        textLayer.foregroundColor = thumbTintColor.cgColor
+        textLayer.foregroundColor = thumbTintColor?.cgColor
         textLayer.contentsScale = UIScreen.main.scale
         contentsLayer.addSublayer(textLayer)
         offContentLayer = textLayer
@@ -341,7 +343,7 @@ class CustomSwitch: UIControl {
         let textLayer = CATextLayer()
         textLayer.font = UIFont(name: "Gill Sans", size: 12)
         textLayer.fontSize = 32
-        textLayer.foregroundColor = thumbTintColor.cgColor
+        textLayer.foregroundColor = thumbTintColor?.cgColor
         textLayer.contentsScale = UIScreen.main.scale
         contentsLayer.addSublayer(textLayer)
         onContentLayer = textLayer

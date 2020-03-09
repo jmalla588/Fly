@@ -18,6 +18,7 @@
 		D6CB6FB124107AD100A86576 /* CustomSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6FB024107AD100A86576 /* CustomSwitch.swift */; };
 		D6CB6FB42412174E00A86576 /* UserDefaults+OptionalGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6FB32412174E00A86576 /* UserDefaults+OptionalGet.swift */; };
 		D6CB6FB6241217A400A86576 /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6FB5241217A400A86576 /* NotificationHelper.swift */; };
+		D6CB6FB824139D5800A86576 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6CB6FB724139D5800A86576 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		D6CB6FB024107AD100A86576 /* CustomSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSwitch.swift; sourceTree = "<group>"; };
 		D6CB6FB32412174E00A86576 /* UserDefaults+OptionalGet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+OptionalGet.swift"; sourceTree = "<group>"; };
 		D6CB6FB5241217A400A86576 /* NotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
+		D6CB6FB724139D5800A86576 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,10 +110,11 @@
 				D6CB6FB22412172600A86576 /* Utilities */,
 				D6CB6F802410718200A86576 /* AppDelegate.swift */,
 				D6CB6F822410718200A86576 /* SceneDelegate.swift */,
+				D6CB6FB724139D5800A86576 /* SettingsViewController.swift */,
 				D6CB6F842410718200A86576 /* FlyMainViewController.swift */,
 				D6CB6F862410718200A86576 /* Main.storyboard */,
-				D6CB6F892410718300A86576 /* Assets.xcassets */,
 				D6CB6F8B2410718300A86576 /* LaunchScreen.storyboard */,
+				D6CB6F892410718300A86576 /* Assets.xcassets */,
 				D6CB6F8E2410718300A86576 /* Info.plist */,
 			);
 			path = Fly;
@@ -278,6 +281,7 @@
 			files = (
 				D6CB6FB6241217A400A86576 /* NotificationHelper.swift in Sources */,
 				D6CB6F852410718200A86576 /* FlyMainViewController.swift in Sources */,
+				D6CB6FB824139D5800A86576 /* SettingsViewController.swift in Sources */,
 				D6CB6F812410718200A86576 /* AppDelegate.swift in Sources */,
 				D6CB6FB124107AD100A86576 /* CustomSwitch.swift in Sources */,
 				D6CB6FB42412174E00A86576 /* UserDefaults+OptionalGet.swift in Sources */,

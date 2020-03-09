@@ -8,8 +8,9 @@
 
 import UIKit
 
-class FlyMainViewController: UIViewController {
+class FlyMainViewController: UIViewController, UIAdaptivePresentationControllerDelegate {
     
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
     @IBOutlet weak var reminderLabel: UILabel!
     @IBOutlet weak var steppingStackView: UIStackView!
     @IBOutlet weak var minutesLabel: UILabel!
@@ -24,6 +25,7 @@ class FlyMainViewController: UIViewController {
     var newSwitch: CustomSwitch = CustomSwitch()
     var autoReminderTimeMinutes = 0
     var autoReminderTimeSeconds = 10
+    var useAutoReminders = UserDefaults.standard.boolOptional(forKey: "USE_AUTO_REMINDERS")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,43 +34,62 @@ class FlyMainViewController: UIViewController {
         getExistingReminderSettings()
         autoReminderTimeMinutes = Int(minuteStepper.value)
         autoReminderTimeSeconds = Int(secondStepper.value)
+        gear.addGestureRecognizer(tapGesture)
+        gear.isUserInteractionEnabled = true
+        gear.tintColor = currentState ? newSwitch.onTintColor : newSwitch.offTintColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        titleLabel.textColor = UIColor.label // allows for automagic dark mode label color switching
-        
-        // set alpha of all visible objects to 0 in order to let them fade in on app load
-        for item in [titleLabel, newSwitch, gear, settings, steppingStackView, reminderLabel] {
-            if let item = item {
-                item.alpha = 0
-            }
-        }
+        setAlpha(alpha: 0) // set alpha of all visible objects to 0 in order to let them fade in on app load
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // set alpha of all visible objects to 1 in order to let them fade in on app load
-        UIView.animate(withDuration: 1, delay: 0, animations: {
-            for item in [self.titleLabel, self.newSwitch, self.gear, self.settings, self.steppingStackView, self.reminderLabel] {
-                if let item = item {
-                    item.alpha = 1
-                }
-            }
-         })
+        useAutoReminders = UserDefaults.standard.boolOptional(forKey: "USE_AUTO_REMINDERS")
+        if let useAutoReminders = useAutoReminders, !useAutoReminders {
+            UIView.animate(withDuration: 1, delay: 0, animations: {
+                self.reminderLabel.alpha = 0
+                self.steppingStackView.alpha = 0
+            })
+            UIView.animate(withDuration: 1, delay: 0, animations: {
+                self.setAlphaMinusReminderSettings(alpha: 1)
+            })
+        } else {
+            // set alpha of all visible objects to 1 in order to let them fade in on app load
+            UIView.animate(withDuration: 1, delay: 0, animations: {
+                self.setAlpha(alpha: 1)
+             })
+        }
         rotateAnimation(imageView: gear)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+      if segue.identifier == "settingsSegue" {
+        segue.destination.presentationController?.delegate = self;
+      }
     }
     
     @objc func switchChanged(_ sender: Any) {
         guard let sender = sender as? CustomSwitch else { return }
         currentState = sender.isOn
         print("Current Toggle State: \(currentState)")
+        gear.tintColor = currentState ? newSwitch.onTintColor : newSwitch.offTintColor
         
         currentState
             ? UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             : NotificationHelper.createFlyNotification(minutes: autoReminderTimeMinutes, seconds: autoReminderTimeSeconds)
     }
     
+    func presentationControllerDidDismiss(
+      _ presentationController: UIPresentationController)
+    {
+        viewDidAppear(true)
+    }
+    
+    
+    //MARK: PRIVATE
     private func requestNotificationAuthorization() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) {_,_ in }
     }
@@ -81,12 +102,14 @@ class FlyMainViewController: UIViewController {
         newSwitch = CustomSwitch(frame: CGRect(x: desiredSwitchX, y: desiredSwitchY, width: desiredSwitchWidth, height: desiredSwitchHeight))
         newSwitch.offText = "UNZIPPED"
         newSwitch.onText = "ZIPPED"
+        newSwitch.attachedKey = "FLY_IS_ZIPPED"
         self.view.addSubview(newSwitch)
         newSwitch.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         newSwitch.isOn = UserDefaults.standard.bool(forKey: "FLY_IS_ZIPPED")
         newSwitch.thumbImage = newSwitch.isOn
             ? UIImage(named: "zippers-closed-vertical")?.cgImage
             : UIImage(named: "zippers-open-vertical")?.cgImage
+        currentState = newSwitch.isOn
     }
     
     private func getExistingReminderSettings() {
@@ -100,19 +123,40 @@ class FlyMainViewController: UIViewController {
         }
     }
     
-    private func rotateAnimation(imageView:UIImageView, duration: CFTimeInterval = 4.0) {
+    private func setAlpha(alpha: CGFloat) {
+        UIView.animate(withDuration: 1, delay: 0, animations: {
+            for item in [self.titleLabel, self.newSwitch, self.gear, self.settings, self.steppingStackView, self.reminderLabel] {
+                if let item = item {
+                    item.alpha = alpha
+                }
+            }
+         })
+    }
+    
+    private func setAlphaMinusReminderSettings(alpha: CGFloat) {
+        UIView.animate(withDuration: 1, delay: 0, animations: {
+            for item in [self.titleLabel, self.newSwitch, self.gear, self.settings] {
+                if let item = item {
+                    item.alpha = alpha
+                }
+            }
+         })
+    }
+    
+    @objc private func rotateAnimation(imageView:UIImageView, duration: CFTimeInterval = 4.0) {
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotateAnimation.fromValue = 0.0
         rotateAnimation.toValue = CGFloat(.pi * 2.0)
         rotateAnimation.duration = duration
         rotateAnimation.repeatCount = .greatestFiniteMagnitude
+        rotateAnimation.isRemovedOnCompletion = false
 
         imageView.layer.add(rotateAnimation, forKey: nil)
     }
     
 }
 
-// Extension where all the IBActions live
+// MARK: Extension where all the IBActions live
 extension FlyMainViewController {
     
     @IBAction func minuteStep(_ sender: Any) {
@@ -138,11 +182,6 @@ extension FlyMainViewController {
             minuteStepper.value -= 1
         }
         autoReminderTimeSeconds = Int(stepper.value)
-    }
-    
-    @IBAction func openSettings(_ sender: Any) {
-        print("bruh")
-        print(autoReminderTimeMinutes, autoReminderTimeSeconds)
     }
     
 }
